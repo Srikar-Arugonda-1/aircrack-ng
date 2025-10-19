@@ -42,7 +42,7 @@ SUBDIRS = airdrop-ng airgraph-ng versuck-ng
 endif
 
 
-dist_sbin_SCRIPTS = airodump-ng-oui-update
+dist_sbin_SCRIPTS = airodump-ng-oui-update aircrack-audit
 
 if LINUX
 dist_sbin_SCRIPTS += airmon-ng
@@ -62,5 +62,10 @@ airmon-ng: airmon-ng.freebsd Makefile
 
 endif
 
-EXTRA_DIST = airmon-ng.freebsd airmon-ng.linux
-CLEANFILES = airmon-ng
+# audit tool
+aircrack-audit: airaudit.py Makefile
+	cp "$(abs_srcdir)/airaudit.py" "$(abs_builddir)/aircrack-audit"
+	chmod +x "$(abs_builddir)/aircrack-audit"
+
+EXTRA_DIST = airmon-ng.freebsd airmon-ng.linux airaudit.py
+CLEANFILES = airmon-ng aircrack-audit
